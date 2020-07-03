@@ -6,21 +6,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\SoapService;
+use ApiPlatform\Core\Annotation\ApiResource;
+
+
+use App\Entity\Clients;
 class DefaultController extends AbstractController {
 
     private $apikey = null;
-    /**
-     * AbstractController constructor.
-     *
-     */
-    public function __construct() {
-    }
+    public function __construct()
+    {
 
+    }
     /**
      * @Route("/", methods={"GET","POST"})
      */
 	public function index(Request $request)
     {
+    	//   $headers = $request->headers->all();
+    	// HEADERS -> $request->headers->get('content-type');
+    	// body -> $request->getContent()
 
         $response = new Response();
 		$SoapService = new SoapService();
@@ -30,4 +34,5 @@ class DefaultController extends AbstractController {
         
         return $response;
     }
+
 }

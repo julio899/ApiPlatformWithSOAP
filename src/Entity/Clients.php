@@ -5,9 +5,9 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ClientsRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+// para activarlo -> @ApiResource(formats={"xml","json"})
+ 
 /**
- * @ApiResource(formats={"xml","json"})
  * @ORM\Entity(repositoryClass=ClientsRepository::class)
  */
 class Clients

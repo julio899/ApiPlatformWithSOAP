@@ -26,3 +26,6 @@ php bin/console doctrine:schema:update --force
 
 composer require migrations
 sudo apt-get install php7.4-soap
+
+# Login Base
+composer require --dev api-platform/schema-generator
