@@ -17,4 +17,12 @@ composer require symfony/maker-bundle --dev
 # Add entity, you can also use Symfony MakerBundle
 php bin/console make:entity --api-resource
 
- php bin/console doctrine:schema:update --force
+
+
+# aplicar o crear tabla de entidades
+php bin/console make:migration
+# actualizar las tablas
+php bin/console doctrine:schema:update --force
+
+composer require migrations
+sudo apt-get install php7.4-soap

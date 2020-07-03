@@ -1,0 +1,3 @@
+parameters:
+    projectDir: '%kernel.project_dir%'
+    apiKeyConexionService: 'YrlU7hA6r-ybBVN-28'
