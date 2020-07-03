@@ -7,7 +7,7 @@ use App\Repository\ClientsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(formats={"xml","json"})
  * @ORM\Entity(repositoryClass=ClientsRepository::class)
  */
 class Clients
