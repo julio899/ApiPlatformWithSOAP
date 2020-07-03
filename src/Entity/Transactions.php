@@ -7,7 +7,10 @@ use App\Repository\TransactionsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @ORM\Entity(repositoryClass=TransactionsRepository::class)
  */
 class Transactions
