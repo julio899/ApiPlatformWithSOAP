@@ -102,6 +102,33 @@ class SoapService extends AbstractController{
 		return $xml->asXML();
     }
 
+    public function setMessageCustom($code,$message,$err = 'true')
+    {
+
+    	$data_array = array (
+		    '' => 'response'
+		);
+    	
+    	$data_response = array (
+		    $code => 'code',
+		    $err => 'error',
+		  );
+
+		$profile_props = [
+				  'Julio Vinachi' => 'name-author'
+    			];
+
+		$xml = new \SimpleXMLElement('<app/>');
+		array_walk_recursive($data_array, array ($xml, 'addChild'));
+		array_walk_recursive($data_response, array ($xml->response, 'addChild'));
+		array_walk_recursive($profile_props, array ($xml->response, 'addAttribute'));
+
+		// Otra forma
+		$xml->response[0]->addChild('message', $message);
+
+		return $xml->asXML();
+    }
+
     public function clientIsValid($data_dom){
     	$isValid = false;
 		$dom = new \DOMDocument;
@@ -126,6 +153,23 @@ class SoapService extends AbstractController{
 		}
 		
 		return $isValid;
+    }
+
+
+    public function getDataClient($data_dom){
+    	$dom = new \DOMDocument;
+		$dom->loadXML($data_dom);
+		$client = \simplexml_import_dom($dom);
+		
+		return array(
+			'name' 		=> $client->name,
+			'lastname' 	=> $client->lastname,
+			'email' 	=> $client->email,
+			'document' 	=> $client->document,
+			'tdoc' 		=> $client->tdoc,
+			'cellphone' => $client->cellphone,
+		);
+		
     }
 
 

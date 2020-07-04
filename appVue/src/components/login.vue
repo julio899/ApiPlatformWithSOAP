@@ -24,9 +24,6 @@
                 <ul id="nav-mobile" class="sidenav">
                     <li><a href="#Inicio">Inicio</a></li>
                     <li><a href="#Servicios">Servicios</a></li>
-                    <li><a href="#NuestroEquipo">Nuestro Equipo</a></li>
-                    <li><a href="#Portafolio">Portafolio</a></li>
-                    <li><a href="#Contacto">Cont&aacute;cto</a></li>
                     <li>
                         <a href="#Terminos">T&eacute;rminos y Condiciones</a>
                     </li>
@@ -386,36 +383,18 @@ export default {
                     },
                 })
             } else {
+
+                this.nameReg = ''
+                this.apellidoReg = ''
+                this.emailReg = ''
+                this.numDocument = ''
+                this.cellphone = ''
+
                 console.log(xmlDoc)
-            }
-
-            this.loading = false
-
-            return true
-            /*
-            this.cuentasStorage.push({
-                name: this.nameReg,
-                lastName: this.apellidoReg,
-                email: this.emailReg,
-                pass: this.numDocument,
-            })
-            // Actualizando el Storage
-            const cuentasLocalStorage = window.localStorage
-            cuentasLocalStorage.setItem('cuentas', JSON.stringify(this.cuentasStorage))
-
-            this.nameReg = ''
-            this.apellidoReg = ''
-            this.emailReg = ''
-            this.numDocument = ''
-
-            // aca un peque#o delay para simular el tiempo de procesamiento de registro
-            const self = this
-            setTimeout(() => {
-                // self.$parent.setPage("store");
                 Swal.fire({
                     position: 'center-end',
                     icon: 'success',
-                    title: 'Cuenta Registrada Satisfactoriamente',
+                    title: xmlDoc.getElementsByTagName('message')[0].textContent,
                     showConfirmButton: false,
                     timer: 1500,
                     showClass: {
@@ -425,9 +404,13 @@ export default {
                         popup: 'animate__animated animate__bounceOut',
                     },
                 })
-                self.loading = false
-            }, 800)
-            */
+
+                this.loading = false
+
+            }
+
+
+            return true
         },
     },
 }

@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  
 /**
  * @ORM\Entity(repositoryClass=ClientsRepository::class)
+ * @ORM\Table(name="clients", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="email", columns={"email","document"})
+ * }, indexes={
+ *      @ORM\Index(name="email", columns={"email","document"})
+ * })
  */
 class Clients
 {
