@@ -113,7 +113,14 @@ class SoapService extends AbstractController{
 				isset($client->email) && 
 				isset($client->document) && 
 				isset($client->tdoc) && 
-				isset($client->cellphone) )
+				isset($client->cellphone) &&
+				trim($client->name) != "" && 
+				trim($client->lastname) != "" && 
+				trim($client->email) != "" && 
+				trim($client->document) != "" && 
+				trim($client->tdoc) != "" && 
+				trim($client->cellphone) != ""
+			)
 		{
 			$isValid = true;
 		}

@@ -1,0 +1,188 @@
+body{
+
+    /*Fondo Custom*/
+
+    background-color: rgb(61, 79, 208);
+    /*background-image: url(../img/bg.svg);*/
+    height: 100vh;
+    background-position: center 0%;
+    background-repeat: no-repeat;
+    background-size: 100%; /*cover <- otra forma*/
+
+}
+
+nav{
+    background-color: transparent;
+    box-shadow: none;
+}
+#logo-container, nav a, ul > li a{
+    color:#fff;
+}
+a.sidenav-trigger.right i.material-icons{
+    font-size: 2.5em;
+}
+.container-logo>img{
+    border-style: none;
+    width: 7em;
+}
+
+.tab-lbl{
+    font-family: 'Dosis', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px!important;
+    line-height: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff!important;
+    display: inline!important;
+    z-index: 10000;
+}
+
+/* Ajuste de color para la Luz del Hover y Activacion*/
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]), input[type=password].valid:not(.browser-default){
+    border-bottom: 1px solid #F5F5F5;
+    -webkit-box-shadow: 0 1px 0 0 #F5F5F5;
+    box-shadow: 0 1px 0 0 #F5F5F5;
+}
+.clave{
+    font-family: 'Dosis', sans-serif;
+    color: #FFF;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.card,.card-tabs,.card>.card-tabs>ul{
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active,.tabs .tab a:focus, .tabs .tab a:focus.active{
+    background-color: transparent!important;
+    outline: none!important;
+    overflow: hidden!important;
+}
+.lbl-newsletter{
+    color:#fff;
+    font-size: 1.2em;
+}
+
+/*Color a indicathor de tab [verde] -> #26a69a*/
+.tabs .tab a:focus.active {
+    color:transparent;
+    /*Custom Text Color While Active*/
+    background-color: rgba(38, 166, 154, 0.2);
+    /*Custom Background Color While Active*/
+  }
+  
+  .tabs .indicator {
+    background-color:transparent;
+    /*Custom Color Of Indicator*/
+  }
+  .btn-ingreso{
+
+    color: #fff;
+    background:linear-gradient(90deg, #8DE7ED 2.31%, #2FCEC5 100%);
+    border-radius: 24px;
+    box-shadow: none;
+    
+  }
+  .section{
+      padding-top: 0%;
+  }
+  .lbl-requerido{
+    color:#2FC0BA;
+    font-family: Dosis;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: right;
+  }
+  #ingreso{
+    background: rgb(58, 48, 97); display: block;
+  }
+
+  /* modelando pesta#as */
+  .tab-ingreso{
+    height:30px;
+    line-height:30px;
+    background:#3a3060;
+    display:inline-block;
+    position:relative;
+    /*
+    background-color: transparent!important;
+    color: #fff;
+    border-right: 4em solid transparent;
+    border-bottom: 4em solid #3a3060;
+    */
+  }
+  .tab-ingreso::after{
+    content: "";
+    position: absolute;
+    right: -2em;
+    top: -1em;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 4.9em solid #3d4fd0;
+    z-index: 3;
+    box-shadow: none;
+  }
+  .tab-registro::after{
+    content: "";
+    position: absolute;
+    left: -2em;
+    top: -1em;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 4.9em solid #3d4fd0;
+    z-index: 3;
+    box-shadow: none;
+  }
+
+  .tab-registro.des::after{
+    border:0!important;
+  }
+
+  /*nav mobil*/
+  ul#nav-mobile:not(.browser-default)
+  {
+    /*margin-top: 65%;*/
+    position: fixed;
+    background-color: #3d4fd0;
+    box-shadow: none;
+    width: 70%;/*100%;*/
+    color: #fff;
+  }
+  /*background cuando esta activo el navigador ara qe sea transparente*/
+  .sidenav-overlay{
+    opacity: 0!important;
+  }
+  #nav-mobile>li>a {
+      color:#fff;
+  }
+  .tab-registro.act{
+    background-color: #3a3060;
+  }
+  .tab-ingreso.des{
+    background-color: #3d4fd0;
+  }
+
+  /* 
+    * colores recuadro success
+     - Verder : #37D0C8
+     - Texto  : ##392F63
+
+     Fuente:
+        font-family: Dosis;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        text-align: center;
+        text-transform: uppercase;
+  */

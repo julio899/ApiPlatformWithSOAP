@@ -6,9 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\SoapService;
-use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 use App\Entity\Clients;
 
 class DefaultController extends AbstractController {
@@ -33,7 +30,7 @@ class DefaultController extends AbstractController {
     }
 
     /**
-     * @Route("/", methods={"POST"}, name="test_soap")
+     * @Route("/v1/test", methods={"POST"}, name="test_soap")
    	 */
     public function testSoap(Request $request)
     {
@@ -53,13 +50,15 @@ class DefaultController extends AbstractController {
     		{
         		$response->setContent( $contentBody );
     		}else{
-				// case fomat invalid or break or format not client
+				// case fomat invalid or break or format is not client
     			$response->setContent( $this->SoapService->messageXmlInvalid() );
+    			$response->setStatusCode(400, 'fomat invalid or break or is not a client format' );
     		}    		
 
     	}else{
     		// case apikey invalid
     		$response->setContent( $this->SoapService->messageApikeyInvalid() );
+    		$response->setStatusCode(500, 'invalid apikey' );
     	}	
         
         return $response;    

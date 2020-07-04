@@ -1,0 +1,10 @@
+1. Hacer Responsive Mobile a Tablet Landscape
+2. Realizar “Javascripts” para Tamaño, Kit, Cantidad, Añadir al Carrito, Descripción. 
+3. Realizar navegación táctil horizontal para “También te podría gustar”.
+4. Bonus: Animaciones en HMTL5 Canvas.
+
+MOBILE BEHAVIOR SKILLS
+RESPONSIVE DESIGN SKILLS
+1. Realizar Comportamiento de cambio de “Tabs” entre Ingreso y Registro.
+2. Realizar “Javascripts” para Suscribirse al Newsletter, Validación de Campo Requerido,  Mensaje de “Success”, Menu “Hamburger”.         
+3. Bonus: Animaciones en HMTL5 Canvas.

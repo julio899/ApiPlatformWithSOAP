@@ -7,6 +7,9 @@
 /public/bundles/
 /var/
 /vendor/
+### app in Vue
+/appVue/node_modules/
+/appVue/dist/
 ###< symfony/framework-bundle ###
 
 ###> friendsofphp/php-cs-fixer ###

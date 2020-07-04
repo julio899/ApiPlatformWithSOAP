@@ -29,3 +29,41 @@ sudo apt-get install php7.4-soap
 
 # Login Base
 composer require --dev api-platform/schema-generator
+
+# modelos de anotaciones
+```
+/**
+ * @ApiResource(
+ *     collectionOperations={
+ *         "get",
+ *     },
+ *     itemOperations={
+ *         "get"={
+ *             "controller"=NotFoundAction::class,
+ *             "read"=false,
+ *             "output"=false,
+ *         },
+ *     },
+ * )
+ */
+
+ -----------------
+ /**
+ * ...
+ * @ApiResource(
+ *     collectionOperations={
+ *         "post"={"path"="/grimoire", "status"=301}
+ *     },
+ *     itemOperations={
+ *         "get"={
+ *             "path"="/grimoire/{id}",
+ *             "requirements"={"id"="\d+"},
+ *             "defaults"={"color"="brown"},
+ *             "options"={"my_option"="my_option_value"},
+ *             "schemes"={"https"},
+ *             "host"="{subdomain}.api-platform.com"
+ *         }
+ *     }
+ * )
+ */
+ ```
