@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\SoapService;
 use App\Entity\Clients;
+use App\Entity\Wallets;
 
 class DefaultController extends AbstractController {
 
@@ -30,9 +31,9 @@ class DefaultController extends AbstractController {
     }
 
     /**
-     * @Route("/v1/test", methods={"POST"}, name="test_soap")
+     * @Route("/v1/register", methods={"POST"}, name="register_soap")
    	 */
-    public function testSoap(Request $request)
+    public function registerSoap(Request $request)
     {
     	$response = new Response();
         $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');//ISO-8859-1
@@ -73,7 +74,8 @@ class DefaultController extends AbstractController {
 	    			return $response;
 		        }
     		
-    			$newClient 	= new Clients();
+    			$newClient 		= new Clients();
+    			$walletClient 	= new Wallets();
     		
     			$newClient->setFirstName( $dataClient['name'] );
     			$newClient->setLastName	( $dataClient['lastname'] );
@@ -81,8 +83,12 @@ class DefaultController extends AbstractController {
     			$newClient->setDocument	( $dataClient['document'] );
     			$newClient->setTdoc		( $dataClient['tdoc'] );
     			$newClient->setCellphone( $dataClient['cellphone'] );
+
+    			$walletClient->setClient($newClient);
+    			$walletClient->setBalance(0.00);
     			// save data & refresh bd
     			$em->persist($newClient);
+    			$em->persist($walletClient);
             	$em->flush();
     		
     			// Here we gets the repositories ti's in other away
@@ -106,5 +112,50 @@ class DefaultController extends AbstractController {
     	}	
         
         return $response;    
+    }
+
+    /**
+     * @Route("/v1/login", methods={"POST"}, name="login_soap")
+   	 */
+    public function loginSoap(Request $request)
+    {
+    	$response = new Response();
+        $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
+        $contentBody = $request->getContent();
+		
+		if($request->headers->get('apikey') && $this->apikey == $request->headers->get('apikey') )
+    	{
+			// New obj DOM
+			$dom = new \DOMDocument;
+			$xml = @$dom->loadXML($contentBody);
+			
+			if($xml && $this->SoapService->clientLoginIsValid($contentBody) )
+    		{
+    			$em = $this->getDoctrine()->getManager();
+    			$dataLoginClient = $this->SoapService->getDataLogin($contentBody);
+    			$responseRepo = $em->getRepository(Clients::class)->findClient($dataLoginClient);
+				
+    			if(count($responseRepo) > 0){
+    				// Success
+					$response->setContent( $this->SoapService->setMessageCustom(200,'Auth Success','false') );
+
+    			}else{
+    				// No Found 404 - no exist
+    				$response->setStatusCode(404, 'Datos Invalidos' );
+    				$response->setContent( $this->SoapService->setMessageCustom(404,'Datos Invalidos') );
+    			}
+
+    		}else{
+    			// case fomat invalid or break or format is not client
+    			$response->setContent( $this->SoapService->messageXmlInvalid() );
+    			$response->setStatusCode(400, 'fomat invalid or break or is not a client format' );
+    		}
+		}else{
+			// case apikey invalid
+    		$response->setContent( $this->SoapService->messageApikeyInvalid() );
+    		$response->setStatusCode(500, 'invalid apikey' );
+		}
+
+		return $response;
     }
 }

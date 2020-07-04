@@ -23,6 +23,18 @@ class ClientsRepository extends ServiceEntityRepository
     {
         return;
     }
+    
+    public function findClient($client)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.email = :val')
+            ->setParameter('val', $client['email'])
+            ->andWhere('c.document = :document')
+            ->setParameter('document', $client['document'])
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
     // /**
     //  * @return Clients[] Returns an array of Clients objects

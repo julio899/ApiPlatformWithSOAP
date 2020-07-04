@@ -155,6 +155,25 @@ class SoapService extends AbstractController{
 		return $isValid;
     }
 
+    public function clientLoginIsValid($data_dom){
+    	$isValid = false;
+		$dom = new \DOMDocument;
+		$dom->loadXML($data_dom);
+		$client = \simplexml_import_dom($dom);
+		
+		if( 	
+				isset($client->email) && 
+				isset($client->document) &&
+				trim($client->email) != "" && 
+				trim($client->document) != ""
+			)
+		{
+			$isValid = true;
+		}
+		
+		return $isValid;
+    }
+
 
     public function getDataClient($data_dom){
     	$dom = new \DOMDocument;
@@ -168,6 +187,18 @@ class SoapService extends AbstractController{
 			'document' 	=> $client->document,
 			'tdoc' 		=> $client->tdoc,
 			'cellphone' => $client->cellphone,
+		);
+		
+    }
+
+    public function getDataLogin($data_dom){
+    	$dom = new \DOMDocument;
+		$dom->loadXML($data_dom);
+		$client = \simplexml_import_dom($dom);
+		
+		return array(
+			'email' 	=> $client->email,
+			'document' 	=> $client->document,
 		);
 		
     }

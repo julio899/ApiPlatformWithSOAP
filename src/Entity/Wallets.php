@@ -48,14 +48,14 @@ class Wallets
         return $this->id;
     }
 
-    public function getIdClient(): ?string
+    public function getClient()
     {
-        return $this->idClient;
+        return $this->client;
     }
 
-    public function setIdClient(string $idClient): self
+    public function setClient(\App\Entity\Clients $client = null): self
     {
-        $this->idClient = $idClient;
+        $this->client = $client;
 
         return $this;
     }

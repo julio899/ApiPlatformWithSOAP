@@ -195,7 +195,6 @@
 
 <script>
 import loading from './loading.vue'
-import accounts from '../data/accounts.js'
 import soapService from '../services/apisoap.js'
 import Swal from 'sweetalert2'
 const jQuery = window.jQuery
@@ -258,25 +257,14 @@ export default {
                 this.tabIngActive = !this.tabIngActive
             }
         },
-        makeLogin: function() {
+        makeLogin: async function() {
             this.actionLogin = !this.actionLogin
             this.loading = true
-            //si existe en la data alguna cuenta que coincida y sea excatamente igual
-            const responseAccount = accounts.accounts.filter(cuenta => {
-                if (this.user === cuenta.user && this.pass === cuenta.pass) {
-                    return true
-                }
-                return null
-            })
 
-            //si existe en el Storage alguna cuenta que coincida y sea excatamente igual
-            const responseAccountStorage = this.cuentasStorage.filter(cuenta => {
-                if (this.user === cuenta.email && this.pass === cuenta.pass) {
-                    return true
-                }
-                return null
+            const xmlDoc = await soapService.loginAccount({
+                email: this.user,
+                document: this.pass,
             })
-
             // empty data
             if (this.user == '' || this.pass == '') {
                 Swal.fire({
@@ -285,16 +273,19 @@ export default {
                     text: 'No puede dejar campos vacios',
                 })
             }
-            // Incorrect
-            if (responseAccount.length == 0 && responseAccountStorage.length == 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lo Sentimos',
-                    text: 'Usuario o Clave Invalidos!',
-                })
-            }
-            // Success
-            if (responseAccount.length == 1 || responseAccountStorage.length == 1) {
+
+            console.log(xmlDoc)
+            if (
+                xmlDoc.getElementsByTagName('response') &&
+                xmlDoc.getElementsByTagName('error').length > 0 &&
+                xmlDoc.getElementsByTagName('error')[0] !== undefined &&
+                xmlDoc.getElementsByTagName('error')[0].textContent == 'false' &&
+                xmlDoc.getElementsByTagName('code').length > 0 &&
+                xmlDoc.getElementsByTagName('code')[0] !== undefined &&
+                xmlDoc.getElementsByTagName('code')[0].textContent == '200'
+            ) {
+                // Success
+
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -313,11 +304,19 @@ export default {
                 })
 
                 this.isLoged = true
+
                 const self = this
                 setTimeout(() => {
                     self.$parent.setPage('store')
                 }, 1510)
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lo Sentimos',
+                    text: 'Usuario o Clave Invalidos!',
+                })
             }
+
             this.loading = false
         },
         makeRegister: async function() {
@@ -383,7 +382,6 @@ export default {
                     },
                 })
             } else {
-
                 this.nameReg = ''
                 this.apellidoReg = ''
                 this.emailReg = ''
@@ -406,9 +404,7 @@ export default {
                 })
 
                 this.loading = false
-
             }
-
 
             return true
         },
