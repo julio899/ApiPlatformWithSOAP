@@ -62,11 +62,11 @@ export default {
                 return parseInt(resp.code)
             })
     },
-    sendTranssaction: async (walletId,code,total) => {
+    sendTranssaction: async (walletId, code, total) => {
         return fetch(apiurl + `v1/${walletId}/tanssaction`, {
             method: 'POST',
             headers: { apikey, 'Content-Type': 'application/json' },
-            body:JSON.stringify({code,total})
+            body: JSON.stringify({ code, total }),
         })
             .then(r => {
                 return r.json()

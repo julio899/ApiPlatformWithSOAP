@@ -199,7 +199,7 @@ export default {
                 })
 
                 // Buscamos el codigo antes de mostrarlo
-                this.dinamicToken =(await soapService.getCode(this.$parent.wallet)).toString()
+                this.dinamicToken = (await soapService.getCode(this.$parent.wallet)).toString()
                 // const self = this;
 
                 confirmacionCompra
@@ -225,36 +225,31 @@ export default {
                                 showCancelButton: true,
                                 confirmButtonText: 'Validar',
                                 showLoaderOnConfirm: true,
-                                preConfirm: async (codeInput) => {
-                                  console.log(
-                                    this.$parent.wallet,
-                                    codeInput,
-                                    this.getTotal()
-                                  );
-                                  const transsaction = await soapService.sendTranssaction(
-                                    this.$parent.wallet,
-                                    codeInput,
-                                    this.getTotal()
-                                  );
-                                  return transsaction;
+                                preConfirm: async codeInput => {
+                                    console.log(this.$parent.wallet, codeInput, this.getTotal())
+                                    const transsaction = await soapService.sendTranssaction(
+                                        this.$parent.wallet,
+                                        codeInput,
+                                        this.getTotal()
+                                    )
+                                    return transsaction
                                 },
                                 allowOutsideClick: () => !Swal.isLoading(),
                             }).then(result => {
                                 this.displayCode = false
-                                console.log(result,(result.value.balance));
+                                console.log(result, result.value.balance)
                                 if (result.value.balance) {
-                                    this.$parent.setBalance(result.value.balance);
+                                    this.$parent.setBalance(result.value.balance)
                                     Swal.fire({
                                         title: `Excelente compra procesada satisfactoriamente`,
-                                        imageUrl: '/img/gold-bars.jpg',//result.value.avatar_url,
+                                        imageUrl: '/img/gold-bars.jpg', //result.value.avatar_url,
                                     })
-                                }else{
-                                  if(result.value.message){
-                                    confirmacionCompra.fire('Operacion Cancelada', result.value.message, 'error')
-                                  }else{
-                                    confirmacionCompra.fire('Operacion Cancelada', 'ha ocurrido un error', 'error')
-                                  }
-
+                                } else {
+                                    if (result.value.message) {
+                                        confirmacionCompra.fire('Operacion Cancelada', result.value.message, 'error')
+                                    } else {
+                                        confirmacionCompra.fire('Operacion Cancelada', 'ha ocurrido un error', 'error')
+                                    }
                                 }
                             })
 
