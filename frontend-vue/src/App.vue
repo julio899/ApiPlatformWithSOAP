@@ -6,7 +6,7 @@
 </template>
 
 <script>
-/* Other away for emit in parent register -> @setPage="this.setPage($event)" 
+/* Other away for emit in parent register -> @setPage="this.setPage($event)"
     In Child :
      example -> this.$emit("setearLoading", true);
 */
@@ -25,6 +25,9 @@ export default {
         return {
             loading: true,
             pages: ['login', 'store'],
+            account: 0,
+            wallet: 0,
+            balance: 0,
             pageSelected: 'login',
         }
     },
@@ -32,6 +35,18 @@ export default {
         setLoad: function(loadStatus) {
             this.loading = loadStatus
             console.log('loading :', this.loading)
+        },
+        setAccount: function(a) {
+            this.account = a
+            console.log('setAccount :', this.account)
+        },
+        setWallet: function(w) {
+            this.wallet = w
+            console.log('setWallet :', this.wallet)
+        },
+        setBalance: function(saldo) {
+            this.balance = parseFloat(saldo).toFixed(2)
+            console.log('setBalance :', this.balance)
         },
         setPage: function(page) {
             this.pageSelected = page

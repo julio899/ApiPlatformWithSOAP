@@ -41,4 +41,38 @@ export default {
             })
         })
     },
+    getBalance: async walletId => {
+        return fetch(apiurl + `v1/${walletId}/balance`, { headers: { apikey, 'Content-Type': 'application/json' } })
+            .then(r => {
+                return r.json()
+            })
+            .then(resp => {
+                return resp.balance
+            })
+    },
+    getCode: async walletId => {
+        return fetch(apiurl + `v1/${walletId}/getcode`, {
+            method: 'POST',
+            headers: { apikey, 'Content-Type': 'application/json' },
+        })
+            .then(r => {
+                return r.json()
+            })
+            .then(resp => {
+                return parseInt(resp.code)
+            })
+    },
+    sendTranssaction: async (walletId,code,total) => {
+        return fetch(apiurl + `v1/${walletId}/tanssaction`, {
+            method: 'POST',
+            headers: { apikey, 'Content-Type': 'application/json' },
+            body:JSON.stringify({code,total})
+        })
+            .then(r => {
+                return r.json()
+            })
+            .then(resp => {
+                return resp
+            })
+    },
 }

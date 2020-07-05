@@ -4,27 +4,28 @@ namespace App\Services;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 class SoapService extends AbstractController{
-	
+
     public function __construct()
     {
-    	global $kernel;
-        $this->container = $kernel->getContainer();
+    		global $kernel;
+
+				$this->container = $kernel->getContainer();
         $this->apikey = $this->container->getParameter('apiKeyConexionService');
     }
 
     public function getApikey(){
     	return $this->apikey;
     }
-
+		public function getUserId(){
+		}
     public function body()
     {
 
     	$data_array = array (
 		    '' => 'profile'
 		);
-    	
+
     	$data_rol = array (
 		    'developer' => 'rol',
 		    '31' => 'age',
@@ -54,7 +55,7 @@ class SoapService extends AbstractController{
     	$data_array = array (
 		    '' => 'response'
 		);
-    	
+
     	$data_response = array (
 		    '500' => 'code',
 		    'true' => 'error',
@@ -81,7 +82,7 @@ class SoapService extends AbstractController{
     	$data_array = array (
 		    '' => 'response'
 		);
-    	
+
     	$data_response = array (
 		    '500' => 'code',
 		    'true' => 'error',
@@ -102,13 +103,13 @@ class SoapService extends AbstractController{
 		return $xml->asXML();
     }
 
-    public function setMessageCustom($code,$message,$err = 'true')
+    public function setMessageCustom($code,$message,$err = 'true', $account = null)
     {
 
     	$data_array = array (
 		    '' => 'response'
 		);
-    	
+
     	$data_response = array (
 		    $code => 'code',
 		    $err => 'error',
@@ -126,6 +127,11 @@ class SoapService extends AbstractController{
 		// Otra forma
 		$xml->response[0]->addChild('message', $message);
 
+		if($account!=null){
+			$xml->response[0]->addChild('account', $account['account']);
+			$xml->response[0]->addChild('wallet', $account['wallet']);
+		}
+
 		return $xml->asXML();
     }
 
@@ -134,24 +140,24 @@ class SoapService extends AbstractController{
 		$dom = new \DOMDocument;
 		$dom->loadXML($data_dom);
 		$client = \simplexml_import_dom($dom);
-		
-		if( 	isset($client->name) && 
-				isset($client->lastname) && 
-				isset($client->email) && 
-				isset($client->document) && 
-				isset($client->tdoc) && 
+
+		if( 	isset($client->name) &&
+				isset($client->lastname) &&
+				isset($client->email) &&
+				isset($client->document) &&
+				isset($client->tdoc) &&
 				isset($client->cellphone) &&
-				trim($client->name) != "" && 
-				trim($client->lastname) != "" && 
-				trim($client->email) != "" && 
-				trim($client->document) != "" && 
-				trim($client->tdoc) != "" && 
+				trim($client->name) != "" &&
+				trim($client->lastname) != "" &&
+				trim($client->email) != "" &&
+				trim($client->document) != "" &&
+				trim($client->tdoc) != "" &&
 				trim($client->cellphone) != ""
 			)
 		{
 			$isValid = true;
 		}
-		
+
 		return $isValid;
     }
 
@@ -160,17 +166,17 @@ class SoapService extends AbstractController{
 		$dom = new \DOMDocument;
 		$dom->loadXML($data_dom);
 		$client = \simplexml_import_dom($dom);
-		
-		if( 	
-				isset($client->email) && 
+
+		if(
+				isset($client->email) &&
 				isset($client->document) &&
-				trim($client->email) != "" && 
+				trim($client->email) != "" &&
 				trim($client->document) != ""
 			)
 		{
 			$isValid = true;
 		}
-		
+
 		return $isValid;
     }
 
@@ -179,7 +185,7 @@ class SoapService extends AbstractController{
     	$dom = new \DOMDocument;
 		$dom->loadXML($data_dom);
 		$client = \simplexml_import_dom($dom);
-		
+
 		return array(
 			'name' 		=> $client->name,
 			'lastname' 	=> $client->lastname,
@@ -188,19 +194,19 @@ class SoapService extends AbstractController{
 			'tdoc' 		=> $client->tdoc,
 			'cellphone' => $client->cellphone,
 		);
-		
+
     }
 
     public function getDataLogin($data_dom){
     	$dom = new \DOMDocument;
 		$dom->loadXML($data_dom);
 		$client = \simplexml_import_dom($dom);
-		
+
 		return array(
 			'email' 	=> $client->email,
 			'document' 	=> $client->document,
 		);
-		
+
     }
 
 

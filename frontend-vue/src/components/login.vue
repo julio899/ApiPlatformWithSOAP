@@ -304,9 +304,15 @@ export default {
                 })
 
                 this.isLoged = true
+                const walletId = xmlDoc.getElementsByTagName('wallet')[0].textContent
+                const balance = await soapService.getBalance(walletId)
+                const account = xmlDoc.getElementsByTagName('account')[0].textContent
 
                 const self = this
                 setTimeout(() => {
+                    self.$parent.setAccount(account)
+                    self.$parent.setBalance(balance)
+                    self.$parent.setWallet(walletId)
                     self.$parent.setPage('store')
                 }, 1510)
             } else {

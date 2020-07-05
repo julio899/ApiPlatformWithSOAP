@@ -1,7 +1,7 @@
 <template>
     <div class="container-store">
         <loading v-if="loading"></loading>
-
+        <showCode v-if="displayCode" :code="dinamicToken" />
         <nav class="" role="navigation">
             <div class="nav-wrapper container">
                 <a id="logo-container" href="#" class="brand-logo left"
@@ -19,7 +19,7 @@
                         <a href="#"><i class="fas fa-bars"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fas fa-shopping-bag"></i> Shopping</a>
+                        <a href="#"><i class="fa fa-piggy-bank"></i> Depositar</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-wallet"></i> Wallet</a>
@@ -36,7 +36,7 @@
                 <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-dollar-sign"></i></a>
                 <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-piggy-bank"></i></a>
 
-                <!-- 
+                <!--
                     <a href="#" class="sidenav-mobil-ico right"><i class="fas fa-shopping-bag"></i></a>
                     <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-hand-holding-usd"></i></a>
                     <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-coins"></i></a>
@@ -147,10 +147,13 @@
 <script>
 import loading from './loading.vue'
 import Swal from 'sweetalert2'
+import showCode from './showCode.vue'
+import soapService from '../services/apisoap.js'
 const jQuery = window.jQuery
 export default {
     components: {
         loading,
+        showCode,
     },
     name: 'store',
     mounted() {
@@ -171,26 +174,105 @@ export default {
             cantidad: 1,
             price: 174.99,
             total: 0,
-            balance: 0.0,
+            displayCode: false,
+            dinamicToken: 1411,
         }
     },
     methods: {
-        comprar() {
+        comprar: async function() {
             this.loading = true
 
-            if (this.getBalance() < this.getTotal()) {
+            if (parseFloat(this.getBalance()) < parseFloat(this.getTotal())) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Lo Sentimos',
                     text: 'Balance Insuficiente tienes $ ' + this.getBalance(),
                     footer: 'necesitas tener almenos un Balance de $' + this.getTotal(),
                 })
+            } else {
+                const confirmacionCompra = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'waves-effect waves-light btn-small btn-sizes btn-add green',
+                        cancelButton: 'waves-effect waves-light btn-small btn-sizes btn-add',
+                    },
+                    buttonsStyling: false,
+                })
+
+                // Buscamos el codigo antes de mostrarlo
+                this.dinamicToken =(await soapService.getCode(this.$parent.wallet)).toString()
+                // const self = this;
+
+                confirmacionCompra
+                    .fire({
+                        title: 'Esta seguro de confirmar la compra de $ ' + this.getTotal() + '?',
+                        text: 'Despues de validado su codigo no se podra revertir!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Si, Comprarlo !',
+                        cancelButtonText: 'No, quiero Cancelar!',
+                        reverseButtons: true,
+                    })
+                    .then(result => {
+                        if (result.value) {
+                            this.displayCode = true
+                            // /////////////
+                            Swal.fire({
+                                title: 'Ingrese 6 dig del token de confirmacion',
+                                input: 'text',
+                                inputAttributes: {
+                                    autocapitalize: 'off',
+                                },
+                                showCancelButton: true,
+                                confirmButtonText: 'Validar',
+                                showLoaderOnConfirm: true,
+                                preConfirm: async (codeInput) => {
+                                  console.log(
+                                    this.$parent.wallet,
+                                    codeInput,
+                                    this.getTotal()
+                                  );
+                                  const transsaction = await soapService.sendTranssaction(
+                                    this.$parent.wallet,
+                                    codeInput,
+                                    this.getTotal()
+                                  );
+                                  return transsaction;
+                                },
+                                allowOutsideClick: () => !Swal.isLoading(),
+                            }).then(result => {
+                                this.displayCode = false
+                                console.log(result,(result.value.balance));
+                                if (result.value.balance) {
+                                    this.$parent.setBalance(result.value.balance);
+                                    Swal.fire({
+                                        title: `Excelente compra procesada satisfactoriamente`,
+                                        imageUrl: '/img/gold-bars.jpg',//result.value.avatar_url,
+                                    })
+                                }else{
+                                  if(result.value.message){
+                                    confirmacionCompra.fire('Operacion Cancelada', result.value.message, 'error')
+                                  }else{
+                                    confirmacionCompra.fire('Operacion Cancelada', 'ha ocurrido un error', 'error')
+                                  }
+
+                                }
+                            })
+
+                            /**/
+                        } else if (
+                            /* Read more about handling dismissals below */
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                            confirmacionCompra.fire('Cancelado', 'Operacion Anulada', 'error')
+                        }
+                    })
             }
 
             this.loading = false
         },
+        showCode() {},
         getBalance() {
-            return parseFloat(this.balance).toFixed(2)
+            return parseFloat(this.$parent.balance).toFixed(2)
         },
         getTotal() {
             this.total = parseFloat(this.price * this.cantidad).toFixed(2)
