@@ -25,12 +25,27 @@ Composer version 1.10.7 2020-06-03 10:03:56
 
 > composer install
 
-
 - para el ambiente de desarrollo en vue para el frontend hubicado en la carpeta frontend-value
 
 > cd frontend-value/ && npm install
 
 
-- para correr el backend ubicarse en la raiz y correr
 
->php -S 127.0.0.1:8000 -t public/
+## BD toda realizada implementado el ORM de Symfony
+
+1 - cuando instales el proyecto se te generara un archivi .env  de environment
+    configurar con tus datos de acceso para mysql `DATABASE_URL=mysql://root:AlgunaClaveMia@127.0.0.1:3306/backend899`
+
+    donde backend899  representa el nombre de la bd que yo le quiero colocar
+
+2 - aplicar o crear tabla de entidades
+    >php bin/console make:migration
+
+
+    actualizar las tablas conforme a las entidades escritas y sus relaciones
+    >php bin/console doctrine:schema:update --force
+
+
+## Para correr el backend ubicarse en la raiz y correr
+
+    >php -S 127.0.0.1:8000 -t public/
