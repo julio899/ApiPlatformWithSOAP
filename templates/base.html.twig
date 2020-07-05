@@ -2,13 +2,31 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Julio Vinachi{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel=stylesheet>
+          <link href="./css/materialize.css" type=text/css rel=stylesheet media=screen,projection>
+          <link href="./css/style.css" type=text/css rel=stylesheet media=screen,projection>
+          <link id=csslogin href="./css/login.css" type=text/css rel=stylesheet media=screen,projection>
+          <link href="./css/animate.min.css" type=text/css rel=stylesheet media=screen,projection>
+          <link href="./css/all.min.css" rel=stylesheet>
+          <link href="./css/app.97934dd7.css" rel=preload as=style>
+          <link href="./js/app.7016ab19.js" rel=preload as=script>
+          <link href="./js/chunk-vendors.225b2e68.js" rel=preload as=script>
+          <link href="./css/app.97934dd7.css" rel=stylesheet>
     </head>
     <body>
+      <noscript><strong>We're sorry but app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
-        <pre>Base</pre>
-        <script src="./js/custom.js"></script>
+
+
+          <script src=./js/jquery-2.1.1.min.js></script>
+          <script src=./js/materialize.js></script>
+          <script src=./js/init.js></script>
+          <script src=./js/chunk-vendors.225b2e68.js></script>
+          <script src=./js/app.7016ab19.js></script>
     </body>
 </html>

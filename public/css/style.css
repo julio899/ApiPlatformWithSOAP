@@ -1,0 +1,181 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to Customizer page
+ *
+ * Made By Julio Cesar Vinachi
+ */
+ /* Font Custom similar al modelo recibido */
+ @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+nav{
+  /*OLD light-blue lighten-1*/
+  background-color: #fff;
+}
+#logo-container ,nav a , ul > li a{
+  color:#33333A;
+}
+
+#photo-main{
+  background-color: #ECEFF1;
+  width: 100%;
+  min-height: 375px;
+  text-align: center;
+  color:#A2A4A8;
+}
+#photo-main>span{
+  color:#A2A4A8;
+  font-size: 30px;
+  line-height: 375px;/*Alineado Verticalmente debe corresponder con el size del contenedor*/
+}
+
+.product-title{
+  /*font-family: 'Dosis', sans-serif;*/
+  font-size: 30px;
+  color:#030303;
+  line-height: 30px;
+}
+.red-start{
+  color:#D61043;
+}
+label.price{
+  color:#33333A;
+  line-height: 30px;
+  font-size: 24px;  
+  font-weight: bold;  
+}
+hr.line{
+  width: 115%;
+  margin-left: -10%;
+  color: #F9F8F6;
+}
+.lbl-sizes{
+  font-family: 'Dosis', sans-serif;
+  color: #33333A;
+  letter-spacing: 1px;
+  font-size: 1em;
+  line-height: 40px;
+}
+.btn-sizes{
+  color: #455A64;
+  background: rgba(236, 239, 241, 0.4);
+  box-shadow: none;
+}
+.btn-sizes:hover,.btn-sizes:active,.btn-sizes.active{
+  background: #33333A;
+  color:#fff;
+}
+
+.btn-kit{
+  color: #455A64;
+  background: #fff;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  box-shadow: none;
+}
+
+.btn-kit:hover,.btn-kit:active,.btn-kit.active{
+  background: #33333A;
+  color:#fff;
+  box-shadow: none;
+}
+.row.left{
+  width: 100%;
+}
+#count{
+  max-width: 50px;
+  margin: auto 10px;
+  text-align: center;
+  font-size: 1.5em;
+}
+.container-count{  
+  border: 1px solid #DEDEDE;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: none;
+  max-width: 150px;
+  padding: 0px 10px;
+  display: inline-block;
+  margin:0px 10px;
+}
+
+.icons-control{
+  font-size: 2em;
+}
+.page-footer{
+  background-color: #33333A;
+  color: #ECEFF1;
+}
+.btn-add{
+  width: 100%;
+  color: #fff;
+  background: #33333A;
+}
+.title-descr{
+  line-height: 30px;
+}
+.txt-descr{
+  color: #666650;
+  font-size: 1.2em;
+  line-height: 1.25;
+  margin-top: 0px;
+}
+.link-read-more{
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #33333A;
+  font-weight: 500;
+}
+.footer-custom,.footer-custom div{
+  background-color:#33333A;
+  color: #fff;
+}
+.txt-copyright{
+    margin: 2em;
+}
+.sidenav-mobil-ico{
+  margin: 0 0.5em;
+}
+.image-product{
+  background-color:#ECEFF1;
+  width: 150px;
+  height: 168px;
+  display: inline-block;
+}
+.price-product{
+  margin: 0px;
+  padding: 0px 1em;
+  line-height:1.5;
+  color: #9D9D9D;
+  font-size: 1.5em!important;
+  line-height: 19px;
+  font-weight: bold;
+  text-align: left;
+}
+.producto{
+  display: inline-block;
+  margin: 0px 0.5em;
+}
+.title-product{
+  padding: 0 1em;
+  margin: 0;
+  line-height: 1.5!important;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.5em;
+  color:#263238;
+  font-weight: bold;
+}
+.container-products-varius{
+  display: inline-flex;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
