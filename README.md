@@ -7,7 +7,7 @@ Copyright (c) The PHP Group
 Zend Engine v3.4.0, Copyright (c) Zend Technologies
   with Zend OPcache v7.4.7, Copyright (c), by Zend Technologies
 
-NPM V6.14.5
+npm V6.14.5
 
 @vue/cli 4.4.1
 
@@ -33,7 +33,7 @@ Composer version 1.10.7 2020-06-03 10:03:56
 
 ## BD toda realizada implementado el ORM de Symfony
 
-1 - cuando instales el proyecto se te generara un archivi .env  de environment
+1 - cuando instales `composer install` el proyecto se te generara un archivo **.env**  de environment
     configurar con tus datos de acceso para mysql `DATABASE_URL=mysql://root:AlgunaClaveMia@127.0.0.1:3306/backend899`
 
     donde backend899  representa el nombre de la bd que yo le quiero colocar
