@@ -50,7 +50,7 @@
 
         <div class="section no-pad-bot" id="index-banner">
             <div class="container">
-                <h1 class="header center product-title">100g de Oro Fino Suisso <br />"100g Gold Suisse"</h1>
+                <h1 class="header center product-title">100g de Oro Fino Suisso <br />"100g Fine Gold Suisse"</h1>
                 <div class="row center">
                     <h5 class="header col s12 light">
                         <i class="fas fa-star red-start"></i>
@@ -63,12 +63,14 @@
                 </div>
                 <hr class="line" />
 
-                <div class="row left">
-                    <span class="lbl-sizes">Tu Balance</span>
-                    <a class="waves-effect waves-light btn-small btn-sizes">$</a>
+                <div class="row center">
+                    <span class="lbl-sizes" style="font-size: 1.3em;">Tu Balance </span>
+                    <a class="waves-effect waves-light btn-small btn-sizes green lighten-5" style="font-size: 1.5em;"
+                        >$ {{ getBalance() }}</a
+                    >
                 </div>
 
-                <div class="row left">
+                <div class="row center">
                     <span class="lbl-sizes">CANTIDAD</span>
                     <div class="container-count">
                         <span class="icons-control lbl-sizes" @click="disminuirCantidad">-</span>
@@ -87,7 +89,7 @@
                 </div>
 
                 <div class="row center">
-                    <a class="waves-effect waves-light btn-large btn-sizes btn-add">Comprar</a>
+                    <a class="waves-effect waves-light btn-large btn-sizes btn-add" @click="comprar">Comprar</a>
                 </div>
 
                 <hr class="line" />
@@ -144,6 +146,7 @@
 
 <script>
 import loading from './loading.vue'
+import Swal from 'sweetalert2'
 const jQuery = window.jQuery
 export default {
     components: {
@@ -168,9 +171,27 @@ export default {
             cantidad: 1,
             price: 174.99,
             total: 0,
+            balance: 0.0,
         }
     },
     methods: {
+        comprar() {
+            this.loading = true
+
+            if (this.getBalance() < this.getTotal()) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lo Sentimos',
+                    text: 'Balance Insuficiente tienes $ ' + this.getBalance(),
+                    footer: 'necesitas tener almenos un Balance de $' + this.getTotal(),
+                })
+            }
+
+            this.loading = false
+        },
+        getBalance() {
+            return parseFloat(this.balance).toFixed(2)
+        },
         getTotal() {
             this.total = parseFloat(this.price * this.cantidad).toFixed(2)
             return this.total
