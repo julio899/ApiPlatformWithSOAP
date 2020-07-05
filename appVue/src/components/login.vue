@@ -381,6 +381,7 @@ export default {
                         popup: 'animate__animated animate__bounceOut',
                     },
                 })
+                this.loading = false
             } else {
                 this.nameReg = ''
                 this.apellidoReg = ''

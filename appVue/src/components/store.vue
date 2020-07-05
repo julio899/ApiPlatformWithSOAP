@@ -4,7 +4,10 @@
 
         <nav class="" role="navigation">
             <div class="nav-wrapper container">
-                <a id="logo-container" href="#" class="brand-logo left">Logo</a>
+                <a id="logo-container" href="#" class="brand-logo left"
+                    ><img src="/img/logo_epayco.png" style="width: 100%;"
+                /></a>
+
                 <ul class="right hide-on-med-and-down ">
                     <li>
                         <a href="#" data-target="nav-mobile"><i class="fas fa-bars"></i></a>
@@ -19,7 +22,7 @@
                         <a href="#"><i class="fas fa-shopping-bag"></i> Shopping</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-search"></i> Searchs</a>
+                        <a href="#"><i class="fa fa-wallet"></i> Wallet</a>
                     </li>
                     <li>
                         <a href="#"><i class="far fa-heart"></i> Favorites</a>
@@ -28,19 +31,26 @@
                 <a href="#" data-target="nav-mobile" class="sidenav-trigger right"
                     ><i class="material-icons">menu</i></a
                 >
-                <a href="#" class="sidenav-mobil-ico right"><i class="far fa-heart"></i></a>
-                <a href="#" class="sidenav-mobil-ico right"><i class="fas fa-shopping-bag"></i></a>
-                <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-search"></i></a>
-            </div>
+
+                <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-wallet"></i></a>
+                <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-dollar-sign"></i></a>
+                <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-piggy-bank"></i></a>
+
+                <!-- 
+                    <a href="#" class="sidenav-mobil-ico right"><i class="fas fa-shopping-bag"></i></a>
+                    <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-hand-holding-usd"></i></a>
+                    <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-coins"></i></a>
+            --></div>
         </nav>
 
         <div class="section no-pad-bot" id="photo-main">
-            <span>Photo</span>
+            <!-- <span>Photo</span> -->
+            <img src="/img/gold100g.webp" style="width: 100%;" />
         </div>
 
         <div class="section no-pad-bot" id="index-banner">
             <div class="container">
-                <h1 class="header center product-title">Pantalones para Dama <br />"The Sideswept Dhoti"</h1>
+                <h1 class="header center product-title">100g de Oro Fino Suisso <br />"100g Gold Suisse"</h1>
                 <div class="row center">
                     <h5 class="header col s12 light">
                         <i class="fas fa-star red-start"></i>
@@ -54,19 +64,8 @@
                 <hr class="line" />
 
                 <div class="row left">
-                    <span class="lbl-sizes">TAMA&Ntilde;O</span>
-                    <a class="waves-effect waves-light btn-small btn-sizes">S</a>
-                    <a class="waves-effect waves-light btn-small btn-sizes">M</a>
-                    <a class="waves-effect waves-light btn-small btn-sizes">L</a>
-                    <a class="waves-effect waves-light btn-small btn-sizes">XL</a>
-                    <a class="waves-effect waves-light btn-small btn-sizes">XXL</a>
-                </div>
-
-                <div class="row left">
-                    <span class="lbl-sizes">KIT</span>
-                    <a class="waves-effect waves-light btn-large btn-kit">HOME</a>
-                    <a class="waves-effect waves-light btn-large btn-kit">AWAY</a>
-                    <a class="waves-effect waves-light btn-large btn-kit">THIRD</a>
+                    <span class="lbl-sizes">Tu Balance</span>
+                    <a class="waves-effect waves-light btn-small btn-sizes">$</a>
                 </div>
 
                 <div class="row left">
@@ -88,7 +87,7 @@
                 </div>
 
                 <div class="row center">
-                    <a class="waves-effect waves-light btn-large btn-sizes btn-add">Agregar al Carrito</a>
+                    <a class="waves-effect waves-light btn-large btn-sizes btn-add">Comprar</a>
                 </div>
 
                 <hr class="line" />
@@ -167,7 +166,7 @@ export default {
         return {
             loading: true,
             cantidad: 1,
-            price: 139.99,
+            price: 174.99,
             total: 0,
         }
     },
