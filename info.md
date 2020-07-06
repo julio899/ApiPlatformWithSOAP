@@ -27,8 +27,14 @@ php bin/console doctrine:schema:update --force
 composer require migrations
 sudo apt-get install php7.4-soap
 
-# Login Base
-composer require --dev api-platform/schema-generator
+## Login Base
+> composer require --dev api-platform/schema-generator
+
+## Formato de Codigo
+
+> composer global require friendsofphp/php-cs-fixer
+> export PATH="$PATH:$HOME/.composer/vendor/bin"
+> php-cs-fixer fix src/
 
 # modelos de anotaciones
 ```
