@@ -7,10 +7,6 @@ use App\Repository\WalletsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource(
- *     collectionOperations={"get"},
- *     itemOperations={"get"}
- * )
  * @ORM\Entity(repositoryClass=WalletsRepository::class)
  */
 class Wallets

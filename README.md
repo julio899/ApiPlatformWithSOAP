@@ -49,3 +49,24 @@ Composer version 1.10.7 2020-06-03 10:03:56
 ## Para correr el backend ubicarse en la raiz y correr
 
     >php -S 127.0.0.1:8000 -t public/
+
+## ENDPOINS
+
+-   todos visibles desde el controlador principal `DefaultController`
+
+```
+  home                 GET      ANY      ANY    /                                    
+  register_soap        POST     ANY      ANY    /v1/register                         
+  login_soap           POST     ANY      ANY    /v1/login                            
+  balance              GET      ANY      ANY    /v1/{wallet}/balance                 
+  getcode              POST     ANY      ANY    /v1/{wallet}/getcode                 
+  tanssaction          POST     ANY      ANY    /v1/{wallet}/tanssaction             
+  deposit              POST     ANY      ANY    /v1/{wallet}/deposit
+```
+
+* Siendo los del soap
+
+```
+  register_soap        POST     ANY      ANY    /v1/register
+  login_soap           POST     ANY      ANY    /v1/login
+```
