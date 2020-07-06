@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TransactionsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,7 +18,8 @@ class Transactions
     private $id;
 
     /**
-     * Wallet que realizo la tansaccion
+     * Wallet que realizo la tansaccion.
+     *
      * @var \AppBundle\Entity\Wallets
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Wallets")

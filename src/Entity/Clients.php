@@ -5,8 +5,9 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ClientsRepository;
 use Doctrine\ORM\Mapping as ORM;
+
 // para activarlo en api-platform -> @ApiResource(formats={"xml","json"})
- 
+
 /**
  * @ORM\Entity(repositoryClass=ClientsRepository::class)
  * @ORM\Table(name="clients", uniqueConstraints={

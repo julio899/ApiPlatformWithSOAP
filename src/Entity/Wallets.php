@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\WalletsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,7 +18,8 @@ class Wallets
     private $id;
 
     /**
-     * Cliente al que pertenece
+     * Cliente al que pertenece.
+     *
      * @var \AppBundle\Entity\Clients
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Clients")

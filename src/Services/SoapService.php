@@ -1,245 +1,243 @@
 <?php
+
 namespace App\Services;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-class SoapService extends AbstractController{
 
+class SoapService extends AbstractController
+{
     public function __construct()
     {
-    		global $kernel;
+        global $kernel;
 
-				$this->container = $kernel->getContainer();
+        $this->container = $kernel->getContainer();
         $this->apikey = $this->container->getParameter('apiKeyConexionService');
     }
 
-    public function getApikey(){
-    	return $this->apikey;
+    public function getApikey()
+    {
+        return $this->apikey;
     }
-		public function getUserId(){
-		}
+
+    public function getUserId()
+    {
+    }
+
     public function body()
     {
+        $data_array = [
+            '' => 'profile',
+        ];
 
-    	$data_array = array (
-		    '' => 'profile'
-		);
+        $data_rol = [
+            'developer' => 'rol',
+            '31' => 'age',
+            'male' => 'sex',
+            'julio899@gmail.com' => 'email',
+        ];
 
-    	$data_rol = array (
-		    'developer' => 'rol',
-		    '31' => 'age',
-		    'male' => 'sex',
-		    'julio899@gmail.com' => 'email'
-		);
+        $profile_props = [
+                  'Julio' => 'name',
+                  'Vinachi' => 'lastname',
+                ];
 
-		$profile_props = [
-				  'Julio' => 'name',
-				  'Vinachi' => 'lastname'
-    			];
+        $xml = new \SimpleXMLElement('<app/>');
+        array_walk_recursive($data_array, [$xml, 'addChild']);
+        array_walk_recursive($data_rol, [$xml->profile, 'addChild']);
+        array_walk_recursive($profile_props, [$xml->profile, 'addAttribute']);
 
-		$xml = new \SimpleXMLElement('<app/>');
-		array_walk_recursive($data_array, array ($xml, 'addChild'));
-		array_walk_recursive($data_rol, array ($xml->profile, 'addChild'));
-		array_walk_recursive($profile_props, array ($xml->profile, 'addAttribute'));
+        // Otra forma
+        $xml->profile[0]->addChild('puntuacion', 'success');
 
-		// Otra forma
-		$xml->profile[0]->addChild('puntuacion', 'success');
-
-		return $xml->asXML();
+        return $xml->asXML();
     }
 
     public function messageApikeyInvalid()
     {
+        $data_array = [
+            '' => 'response',
+        ];
 
-    	$data_array = array (
-		    '' => 'response'
-		);
+        $data_response = [
+            '500' => 'code',
+            'true' => 'error',
+          ];
 
-    	$data_response = array (
-		    '500' => 'code',
-		    'true' => 'error',
-		  );
+        $profile_props = [
+                  'Julio Vinachi' => 'name-author',
+                ];
 
-		$profile_props = [
-				  'Julio Vinachi' => 'name-author'
-    			];
+        $xml = new \SimpleXMLElement('<app/>');
+        array_walk_recursive($data_array, [$xml, 'addChild']);
+        array_walk_recursive($data_response, [$xml->response, 'addChild']);
+        array_walk_recursive($profile_props, [$xml->response, 'addAttribute']);
 
-		$xml = new \SimpleXMLElement('<app/>');
-		array_walk_recursive($data_array, array ($xml, 'addChild'));
-		array_walk_recursive($data_response, array ($xml->response, 'addChild'));
-		array_walk_recursive($profile_props, array ($xml->response, 'addAttribute'));
+        // Otra forma
+        $xml->response[0]->addChild('message', 'Error apikey is invalid');
 
-		// Otra forma
-		$xml->response[0]->addChild('message', 'Error apikey is invalid');
-
-		return $xml->asXML();
+        return $xml->asXML();
     }
 
     public function messageXmlInvalid()
     {
+        $data_array = [
+            '' => 'response',
+        ];
 
-    	$data_array = array (
-		    '' => 'response'
-		);
+        $data_response = [
+            '500' => 'code',
+            'true' => 'error',
+          ];
 
-    	$data_response = array (
-		    '500' => 'code',
-		    'true' => 'error',
-		  );
+        $profile_props = [
+                  'Julio Vinachi' => 'name-author',
+                ];
 
-		$profile_props = [
-				  'Julio Vinachi' => 'name-author'
-    			];
+        $xml = new \SimpleXMLElement('<app/>');
+        array_walk_recursive($data_array, [$xml, 'addChild']);
+        array_walk_recursive($data_response, [$xml->response, 'addChild']);
+        array_walk_recursive($profile_props, [$xml->response, 'addAttribute']);
 
-		$xml = new \SimpleXMLElement('<app/>');
-		array_walk_recursive($data_array, array ($xml, 'addChild'));
-		array_walk_recursive($data_response, array ($xml->response, 'addChild'));
-		array_walk_recursive($profile_props, array ($xml->response, 'addAttribute'));
+        // Otra forma
+        $xml->response[0]->addChild('message', 'Error the XML is Invalid or Break please check');
 
-		// Otra forma
-		$xml->response[0]->addChild('message', 'Error the XML is Invalid or Break please check');
-
-		return $xml->asXML();
+        return $xml->asXML();
     }
 
-    public function setMessageCustom($code,$message,$err = 'true', $account = null)
+    public function setMessageCustom($code, $message, $err = 'true', $account = null)
     {
+        $data_array = [
+            '' => 'response',
+        ];
 
-    	$data_array = array (
-		    '' => 'response'
-		);
+        $data_response = [
+            $code => 'code',
+            $err => 'error',
+          ];
 
-    	$data_response = array (
-		    $code => 'code',
-		    $err => 'error',
-		  );
+        $profile_props = [
+                  'Julio Vinachi' => 'name-author',
+                ];
 
-		$profile_props = [
-				  'Julio Vinachi' => 'name-author'
-    			];
+        $xml = new \SimpleXMLElement('<app/>');
+        array_walk_recursive($data_array, [$xml, 'addChild']);
+        array_walk_recursive($data_response, [$xml->response, 'addChild']);
+        array_walk_recursive($profile_props, [$xml->response, 'addAttribute']);
 
-		$xml = new \SimpleXMLElement('<app/>');
-		array_walk_recursive($data_array, array ($xml, 'addChild'));
-		array_walk_recursive($data_response, array ($xml->response, 'addChild'));
-		array_walk_recursive($profile_props, array ($xml->response, 'addAttribute'));
+        // Otra forma
+        $xml->response[0]->addChild('message', $message);
 
-		// Otra forma
-		$xml->response[0]->addChild('message', $message);
+        if (null != $account) {
+            $xml->response[0]->addChild('account', $account['account']);
+            $xml->response[0]->addChild('wallet', $account['wallet']);
+        }
 
-		if($account!=null){
-			$xml->response[0]->addChild('account', $account['account']);
-			$xml->response[0]->addChild('wallet', $account['wallet']);
-		}
-
-		return $xml->asXML();
+        return $xml->asXML();
     }
 
-    public function clientIsValid($data_dom){
-    	$isValid = false;
-		$dom = new \DOMDocument;
-		$dom->loadXML($data_dom);
-		$client = \simplexml_import_dom($dom);
+    public function clientIsValid($data_dom)
+    {
+        $isValid = false;
+        $dom = new \DOMDocument();
+        $dom->loadXML($data_dom);
+        $client = \simplexml_import_dom($dom);
 
-		if( 	isset($client->name) &&
-				isset($client->lastname) &&
-				isset($client->email) &&
-				isset($client->document) &&
-				isset($client->tdoc) &&
-				isset($client->cellphone) &&
-				trim($client->name) != "" &&
-				trim($client->lastname) != "" &&
-				trim($client->email) != "" &&
-				trim($client->document) != "" &&
-				trim($client->tdoc) != "" &&
-				trim($client->cellphone) != ""
-			)
-		{
-			$isValid = true;
-		}
+        if (isset($client->name) &&
+                isset($client->lastname) &&
+                isset($client->email) &&
+                isset($client->document) &&
+                isset($client->tdoc) &&
+                isset($client->cellphone) &&
+                '' != trim($client->name) &&
+                '' != trim($client->lastname) &&
+                '' != trim($client->email) &&
+                '' != trim($client->document) &&
+                '' != trim($client->tdoc) &&
+                '' != trim($client->cellphone)
+            ) {
+            $isValid = true;
+        }
 
-		return $isValid;
+        return $isValid;
     }
 
-    public function clientLoginIsValid($data_dom){
-    	$isValid = false;
-		$dom = new \DOMDocument;
-		$dom->loadXML($data_dom);
-		$client = \simplexml_import_dom($dom);
+    public function clientLoginIsValid($data_dom)
+    {
+        $isValid = false;
+        $dom = new \DOMDocument();
+        $dom->loadXML($data_dom);
+        $client = \simplexml_import_dom($dom);
 
-		if(
-				isset($client->email) &&
-				isset($client->document) &&
-				trim($client->email) != "" &&
-				trim($client->document) != ""
-			)
-		{
-			$isValid = true;
-		}
+        if (
+                isset($client->email) &&
+                isset($client->document) &&
+                '' != trim($client->email) &&
+                '' != trim($client->document)
+            ) {
+            $isValid = true;
+        }
 
-		return $isValid;
+        return $isValid;
     }
 
+    public function getDataClient($data_dom)
+    {
+        $dom = new \DOMDocument();
+        $dom->loadXML($data_dom);
+        $client = \simplexml_import_dom($dom);
 
-    public function getDataClient($data_dom){
-    	$dom = new \DOMDocument;
-		$dom->loadXML($data_dom);
-		$client = \simplexml_import_dom($dom);
-
-		return array(
-			'name' 		=> $client->name,
-			'lastname' 	=> $client->lastname,
-			'email' 	=> $client->email,
-			'document' 	=> $client->document,
-			'tdoc' 		=> $client->tdoc,
-			'cellphone' => $client->cellphone,
-		);
-
+        return [
+            'name' => $client->name,
+            'lastname' => $client->lastname,
+            'email' => $client->email,
+            'document' => $client->document,
+            'tdoc' => $client->tdoc,
+            'cellphone' => $client->cellphone,
+        ];
     }
 
-    public function getDataLogin($data_dom){
-    	$dom = new \DOMDocument;
-		$dom->loadXML($data_dom);
-		$client = \simplexml_import_dom($dom);
+    public function getDataLogin($data_dom)
+    {
+        $dom = new \DOMDocument();
+        $dom->loadXML($data_dom);
+        $client = \simplexml_import_dom($dom);
 
-		return array(
-			'email' 	=> $client->email,
-			'document' 	=> $client->document,
-		);
-
+        return [
+            'email' => $client->email,
+            'document' => $client->document,
+        ];
     }
-
 
     /*
-    	* Ejemplo para comprobacion de xml
-    	$dom = new DOMDocument;
-		$dom->loadXML('<libros><libro><titulo>bla</titulo></libro></libros>');
-		if (!$dom) {
-		    echo 'Error al analizar el documento');
-		    exit;
-		}
+        * Ejemplo para comprobacion de xml
+        $dom = new DOMDocument;
+        $dom->loadXML('<libros><libro><titulo>bla</titulo></libro></libros>');
+        if (!$dom) {
+            echo 'Error al analizar el documento');
+            exit;
+        }
 
-		$s = simplexml_import_dom($dom);
+        $s = simplexml_import_dom($dom);
 
-		echo $s->libro[0]->titulo;
+        echo $s->libro[0]->titulo;
 
 
-		--------------------------------------------------
+        --------------------------------------------------
 
-		* Notas de funcones disponibles
-		SimpleXMLElement::addAttribute — Añade un atributo al elemento SimpleXML
-		SimpleXMLElement::addChild — Añade un elemento hijo al nodo XML
-		SimpleXMLElement::asXML — Retorna un string XML correcto basado en un elemento SimpleXML
-		SimpleXMLElement::attributes — Identifica el atributo de un elemento
-		SimpleXMLElement::children — Encuentra los hijos del nodo dado
-		SimpleXMLElement::__construct — Crea un nuevo objeto SimpleXMLElement
-		SimpleXMLElement::count — Cuenta los hijos de un elemento
-		SimpleXMLElement::getDocNamespaces — Devuelve los espacios de nombre declarados en el documento
-		SimpleXMLElement::getName — Retorna el nombre del elemento XML
-		SimpleXMLElement::getNamespaces — Devuelve los espacios de nombre usados en el documento
-		SimpleXMLElement::registerXPathNamespace — Crea un contexto prefijo/ns para la siguiente petición XPath
-		SimpleXMLElement::saveXML — Alias de SimpleXMLElement::asXML
-		SimpleXMLElement::__toString — Returns the string content
-		SimpleXMLElement::xpath — Ejecuta una petición XPath sobre los datos XML
+        * Notas de funcones disponibles
+        SimpleXMLElement::addAttribute — Añade un atributo al elemento SimpleXML
+        SimpleXMLElement::addChild — Añade un elemento hijo al nodo XML
+        SimpleXMLElement::asXML — Retorna un string XML correcto basado en un elemento SimpleXML
+        SimpleXMLElement::attributes — Identifica el atributo de un elemento
+        SimpleXMLElement::children — Encuentra los hijos del nodo dado
+        SimpleXMLElement::__construct — Crea un nuevo objeto SimpleXMLElement
+        SimpleXMLElement::count — Cuenta los hijos de un elemento
+        SimpleXMLElement::getDocNamespaces — Devuelve los espacios de nombre declarados en el documento
+        SimpleXMLElement::getName — Retorna el nombre del elemento XML
+        SimpleXMLElement::getNamespaces — Devuelve los espacios de nombre usados en el documento
+        SimpleXMLElement::registerXPathNamespace — Crea un contexto prefijo/ns para la siguiente petición XPath
+        SimpleXMLElement::saveXML — Alias de SimpleXMLElement::asXML
+        SimpleXMLElement::__toString — Returns the string content
+        SimpleXMLElement::xpath — Ejecuta una petición XPath sobre los datos XML
     */
 }

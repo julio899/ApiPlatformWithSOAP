@@ -23,7 +23,7 @@ class ClientsRepository extends ServiceEntityRepository
     {
         return;
     }
-    
+
     public function findClient($client)
     {
         return $this->createQueryBuilder('c')
@@ -35,5 +35,4 @@ class ClientsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
 }
