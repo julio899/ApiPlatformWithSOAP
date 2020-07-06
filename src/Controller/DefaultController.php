@@ -276,4 +276,48 @@ class DefaultController extends AbstractController {
       }
       return $response;
   }
+
+  /**
+  * @Route("/v1/{wallet}/deposit", methods={"POST"}, name="deposit")
+  */
+  public function processDeposito(Request $request,$wallet){
+    $response = new Response();
+    $response->headers->set('Content-Type', 'application/json');
+    $em = $this->getDoctrine()->getManager();
+    $repoWallet = $em->getRepository(Wallets::class)->findBy(['id'=>$wallet]);
+    $data = json_decode($request->getContent(),true);
+    if( $request->headers->get('apikey') && $this->apikey == $request->headers->get('apikey') && isset($data['documento']) && isset($data['phone']) && isset($data['total']))
+    {
+      if(isset($repoWallet[0]))
+      {
+          $client = $repoWallet[0]->getClient();
+          $documento  = intval($data['documento']);
+          $cellphone  = $data['phone'];
+          $total = floatval($data['total']);
+
+          // si es igual es que procesaremos
+          if( $client->getDocument() == $documento && $client->getCellphone() == $cellphone )
+          {
+              $repoWallet[0]->setDinamicToken(random_int(100000, 999999));
+              $repoWallet[0]->setBalance( floatval( $repoWallet[0]->getBalance() + $total ) );
+
+              $em->persist($repoWallet[0]);
+              $em->flush();
+
+              $response = new JsonResponse([
+                'balance'     =>$repoWallet[0]->getBalance(),
+                'transsaccion'=> true
+              ]);
+
+          }else{
+            $response = new JsonResponse(['error' => 404,'message'=>'los datos no coinciden']);
+          }
+        }else{
+          $response = new JsonResponse(['error' => 404,'message'=>'this wallet no exist']);
+        }
+    }else{
+      $response = new JsonResponse(['error' => 500,'message'=>'phone & documento & apikey & total is mandatory']);
+    }
+    return $response;
+}
 }

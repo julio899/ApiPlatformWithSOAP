@@ -18,14 +18,11 @@
                     <li>
                         <a href="#"><i class="fas fa-bars"></i></a>
                     </li>
-                    <li>
+                    <li @click="toDeposit">
                         <a href="#"><i class="fa fa-piggy-bank"></i> Depositar</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-wallet"></i> Wallet</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="far fa-heart"></i> Favorites</a>
                     </li>
                 </ul>
                 <a href="#" data-target="nav-mobile" class="sidenav-trigger right"
@@ -33,8 +30,7 @@
                 >
 
                 <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-wallet"></i></a>
-                <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-dollar-sign"></i></a>
-                <a href="#" class="sidenav-mobil-ico right"><i class="fa fa-piggy-bank"></i></a>
+                <a href="#" @click="toDeposit" class="sidenav-mobil-ico right"><i class="fa fa-piggy-bank"></i></a>
 
                 <!--
                     <a href="#" class="sidenav-mobil-ico right"><i class="fas fa-shopping-bag"></i></a>
@@ -179,6 +175,9 @@ export default {
         }
     },
     methods: {
+        toDeposit: function() {
+            this.$parent.setPage('deposit')
+        },
         comprar: async function() {
             this.loading = true
 

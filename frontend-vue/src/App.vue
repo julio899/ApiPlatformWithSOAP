@@ -13,6 +13,7 @@
 import loader from './components/loader.vue'
 import login from './components/login.vue'
 import store from './components/store.vue'
+import deposit from './components/deposit.vue'
 
 export default {
     name: 'App',
@@ -20,11 +21,12 @@ export default {
         loader,
         login,
         store,
+        deposit,
     },
     data: function() {
         return {
             loading: true,
-            pages: ['login', 'store'],
+            pages: ['login', 'store', 'deposit'],
             account: 0,
             wallet: 0,
             balance: 0,

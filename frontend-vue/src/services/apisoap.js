@@ -75,4 +75,17 @@ export default {
                 return resp
             })
     },
+    sendDeposit: async (walletId, documento, phone, total) => {
+        return fetch(apiurl + `v1/${walletId}/deposit`, {
+            method: 'POST',
+            headers: { apikey, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ documento, phone, total }),
+        })
+            .then(r => {
+                return r.json()
+            })
+            .then(resp => {
+                return resp
+            })
+    },
 }
